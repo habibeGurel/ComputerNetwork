@@ -6,7 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 /**
- * class for the paddle
+ *
  *
  * @author Habibe
  *
@@ -31,25 +31,14 @@ public class Paddle {
             x = PinPonGame.WIDTH - width;
         } else {
             x = 0;
-
         }
-
         y = PinPonGame.HEIGHT / 2 - height / 2;
-
     }
 
-    /**
-     * add a point to the player
-     */
     public void addPoint() {
         score++;
     }
 
-    /**
-     * Draw paddle (a rectangle), Draw score too
-     *
-     * @param g - Graphics object used to myDraw everything
-     */
     public void draw(Graphics g) {
 
         // draw paddle

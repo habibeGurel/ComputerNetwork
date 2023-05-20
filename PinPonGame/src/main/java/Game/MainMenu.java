@@ -12,7 +12,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 
 /**
- * the main menu at the start of the game
+ *
  *
  * @author Habibe
  *
@@ -22,28 +22,28 @@ public class MainMenu extends MouseAdapter {
     public static boolean available; // true if main menu is displaying
     private boolean isPlayerName = false;
     private Font font;
-    
+
     private Rectangle lbl_PlayerName;
     private boolean isPlayer = false;
     private String txt_Nickname = "Nick Name->";
-    
+
     private Rectangle gamerName;
     private boolean tHighlight = false;
     public String txt_GamerName = "";
-   
+
     // Ready button
     private Rectangle btn_Ready;
     private boolean isReady = false; // true if the mouse hovered over the rectangle
     private String txt_Ready = "Ready";
-  
+
     //constructor
     public MainMenu(PinPonGame game) {
         available = true;
         game.startThread();
         font = new Font("Arial", Font.ITALIC, 30);
-        
+
         // position and dimensions of each button
-        int x, y, width=200, height=50;
+        int x, y, width = 200, height = 50;
 
         y = PinPonGame.HEIGHT / 2 + height / 2;
         int x_flocation = PinPonGame.WIDTH / 4 - width / 2;
@@ -55,7 +55,7 @@ public class MainMenu extends MouseAdapter {
         lbl_PlayerName = new Rectangle(x_flocation, y, width, height);
 
         gamerName = new Rectangle(x_slocation, y, width, height);
-        
+
     }
 
     public void draw(Graphics g) {//This myDraw method draws the main menu components
@@ -74,23 +74,22 @@ public class MainMenu extends MouseAdapter {
         }
         g2d.fill(btn_Ready);
 
-        // myDraw labels
+        // draw labels
         g.setColor(labelColor);
         g2d.fill(lbl_PlayerName);
 
         g.setColor(labelColor);
         g2d.fill(gamerName);
 
-        // myDraw borders
-        g.setColor(Color.white);
+        // draw borders of buttons and labels
+        g.setColor(Color.CYAN);
         g2d.draw(btn_Ready);
         g2d.draw(lbl_PlayerName);
         g2d.draw(gamerName);
 
-        // myDraw text in buttons
+        // draw text in buttons
         int strWidth, strHeight;
 
-        // Play Button text
         strWidth = g.getFontMetrics(font).stringWidth(txt_Ready);
         strHeight = g.getFontMetrics(font).getHeight();
 
@@ -98,7 +97,6 @@ public class MainMenu extends MouseAdapter {
         g.drawString(txt_Ready, (int) (btn_Ready.getX() + btn_Ready.getWidth() / 2 - strWidth / 2),
                 (int) (btn_Ready.getY() + btn_Ready.getHeight() / 2 + strHeight / 4));
 
-        // User Name Label text
         strWidth = g.getFontMetrics(font).stringWidth(txt_Nickname);
         strHeight = g.getFontMetrics(font).getHeight();
 
@@ -106,7 +104,6 @@ public class MainMenu extends MouseAdapter {
         g.drawString(txt_Nickname, (int) (lbl_PlayerName.getX() + lbl_PlayerName.getWidth() / 2 - strWidth / 2),
                 (int) (lbl_PlayerName.getY() + lbl_PlayerName.getHeight() / 2 + strHeight / 4));
 
-        // User Name Text Content
         strWidth = g.getFontMetrics(font).stringWidth(txt_GamerName);
         strHeight = g.getFontMetrics(font).getHeight();
 
@@ -117,9 +114,14 @@ public class MainMenu extends MouseAdapter {
     }
 
     @Override
+    public void mouseMoved(MouseEvent e) {
+        Point p = e.getPoint();
+        isReady = btn_Ready.contains(p);
+    }
+
+    @Override
     public void mouseClicked(MouseEvent e) {
         Point p = e.getPoint();
-
         if (btn_Ready.contains(p)) {
             available = false;
             Client.Start("127.0.0.1", 5000);
@@ -129,14 +131,6 @@ public class MainMenu extends MouseAdapter {
         } else if (gamerName.contains(p)) {
             isPlayerName = true;
         }
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        Point p = e.getPoint();
-        // determine if mouse is hovering inside one of the buttons
-        isReady = btn_Ready.contains(p);
-
     }
 
 }

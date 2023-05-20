@@ -49,7 +49,7 @@ public class Client {
 
     public static void Stop() {//this method makes client stop
         try {
-            if (Client.socket != null) {//Terminates all connections to stop client.socket as long as it exists
+            if (Client.socket != null) {//Terminates all connections to stop client socket as long as it exists
                 Client.listenServer.stop();
                 Client.socket.close();
                 Client.sOutput.flush();
@@ -60,7 +60,6 @@ public class Client {
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public static void Send(Message msg) {// this method sends the message to other client
@@ -84,7 +83,6 @@ class Listen extends Thread {
         //when socket connected
         while (Client.socket.isConnected()) {
             try {
-                //blocking until message has recieved
                 Message received = (Message) (Client.sInput.readObject());
 
                 switch (received.type) {
