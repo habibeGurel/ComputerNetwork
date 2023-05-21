@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Server;
 
 import Message.Message;
@@ -14,9 +9,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Habibe
+ * Bilgisayar Aglari Proje 1
+ * @author Habibe Gurel 1921221034
  */
+
 public class SClient {
 
     int id;
@@ -27,8 +23,8 @@ public class SClient {
     ClientListen listenThread;
     SClient rival = null;
 
-    public SClient(Socket gelenSoket, int id) {
-        this.soket = gelenSoket;
+    public SClient(Socket receivedSocket, int id) {
+        this.soket = receivedSocket;
         this.id = id;
         try {
             this.sOutput = new ObjectOutputStream(this.soket.getOutputStream());
@@ -61,11 +57,10 @@ public class SClient {
                             break;
                         } else {
                             Message msg = (Message) TheClient.sInput.readObject();
-
                             switch (msg.type) {
                                 case ServerCome:
                                     TheClient.name = msg.content.toString();
-                                    System.out.println("User " + TheClient.name + " has joined the server...");
+                                    System.out.println(TheClient.name + " is connected to server");
                                     Server.FindCurrentRival(TheClient);
                                     break;
                                 case PaddleUp:

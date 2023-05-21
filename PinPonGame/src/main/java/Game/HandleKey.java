@@ -4,12 +4,12 @@ import Client.Client;
 import java.awt.event.KeyEvent;
 import Message.Message;
 import java.awt.event.KeyAdapter;
+
 /**
- *
- *
- * @author Habibe
- *
+ * Bilgisayar Aglari Proje 1
+ * @author Habibe Gurel 1921221034
  */
+
 public class HandleKey extends KeyAdapter {
 
     private MainMenu mainMenu;
@@ -19,13 +19,14 @@ public class HandleKey extends KeyAdapter {
     public static boolean leftUp = false;
     public static boolean leftDown = false;
 
+    //constructor
     public HandleKey(Paddle p, MainMenu menu) {
         rightPaddle = p;
         mainMenu = menu;
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {//when the key pressed this method reads the key
         int keyCode = e.getKeyCode();
         if (mainMenu.txt_GamerName.length() < 8) {//the length of the name should be max 8
             if (mainMenu.isMainMenuDisplaying) {
@@ -37,13 +38,13 @@ public class HandleKey extends KeyAdapter {
         }
         if (Client.socket != null) {
             if (keyCode == KeyEvent.VK_UP) {
-                rightPaddle.changeDirections(-1);//If the up arrow keyCode is pressed, the changeDirections() method is called, which changes the direction of the right player's paddle.
+                rightPaddle.changeDirections(-1);//If the up arrow key is pressed, the changeDirections() method is called, which changes the direction of the right player's paddle.
                 rightUp = true;
                 Message msg = new Message(Message.Message_Type.PaddleUp);
                 msg.content = "Up";
                 Client.Send(msg);//sends the up movement information of the player's racket on the right.
             }
-            if (keyCode == KeyEvent.VK_DOWN) {//If the down arrow keyCode is pressed, the changeDirections() method is called, which changes the direction of the right player's paddle.
+            if (keyCode == KeyEvent.VK_DOWN) {//If the down arrow key is pressed, the changeDirections() method is called, which changes the direction of the right player's paddle.
                 rightPaddle.changeDirections(1);
                 rightDown = true;
                 Message msg = new Message(Message.Message_Type.PaddleDown);
@@ -54,7 +55,7 @@ public class HandleKey extends KeyAdapter {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e) {//stop the movement of the paddles when you stop pressing the button
         int keyCode = 0;
         if (Client.socket != null) {
             keyCode = e.getKeyCode();

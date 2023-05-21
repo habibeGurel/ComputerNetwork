@@ -6,27 +6,25 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 /**
+ * Bilgisayar Aglari Proje 1
  *
- *
- * @author Habibe
- *
+ * @author Habibe Gurel 1921221034
  */
 public class Paddle {
 
-    private Color color; // color of the paddle
-    private int x, y; // positions
-    private int velocityP = 0; // speed and direction of paddle
-    private int speed = 10; // speed of the paddle movement
-    private int height = 85, width = 22; // dimensions
-    public int score = 0; // score for the player
-    private boolean right; // true if it's the right paddle
+    public Color color; // color of the paddle
+    public int x, y, height = 85, width = 22; // dimensions and positions
+    public int velocityP = 0; // speed and direction of paddle
+    public int speed = 10; // speed of the paddle
+    public int score = 0; // score of the player
+    public boolean isRight; // true, if it is the isRight paddle
 
+    //constructor
     public Paddle(Color c, boolean right) {
-        // initial properties
         color = c;
-        this.right = right;
+        this.isRight = right;
 
-        if (right) // different x values if right or left paddle
+        if (right)
         {
             x = PinPonGame.WIDTH - width;
         } else {
@@ -35,11 +33,11 @@ public class Paddle {
         y = PinPonGame.HEIGHT / 2 - height / 2;
     }
 
-    public void addPoint() {
+    public void addPoint() {//increases players' score
         score++;
     }
 
-    public void draw(Graphics g) {
+    public void drawPaddle(Graphics g) {
 
         // draw paddle
         g.setColor(color);
@@ -47,16 +45,15 @@ public class Paddle {
 
         // draw score
         int str_Xpos; // x position of the string
-        String scoreText ="  Score: "+ Integer.toString(score);
+        String scoreText = "  Score: " + Integer.toString(score);
         Font font = new Font("Arial", Font.BOLD, 40);
 
-        if (right) {
+        if (isRight) {
             str_Xpos = PinPonGame.WIDTH / 2 + 25;
         } else {
-            int strWidth = g.getFontMetrics(font).stringWidth(scoreText); // we need the width of the string so we can
+            int strWidth = g.getFontMetrics(font).stringWidth(scoreText); // width of the string
             str_Xpos = PinPonGame.WIDTH / 2 - 25 - strWidth;
         }
-
         g.setFont(font);
         g.drawString(scoreText, str_Xpos, 50);
     }
@@ -69,7 +66,7 @@ public class Paddle {
         //this line updates the ball position
         y = PinPonGame.provideRange(y + velocityP, 0, PinPonGame.HEIGHT - height);
 
-        if (right) {
+        if (isRight) {
             if (ballX + Ball.SIZE >= x && ballY + Ball.SIZE >= y && ballY <= y + height) {
                 b.changeXDirection();
             }

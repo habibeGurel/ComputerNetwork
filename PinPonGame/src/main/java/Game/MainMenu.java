@@ -12,29 +12,28 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 
 /**
- *
- *
- * @author Habibe
- *
+ * Bilgisayar Aglari Proje 1
+ * @author Habibe Gurel 1921221034
  */
+
 public class MainMenu extends MouseAdapter {
 
     public static boolean isMainMenuDisplaying; // true if main menu is displaying
-    private boolean isPlayerNameInput = false;
-    private Font font;
+    public boolean isPlayerNameInput = false;
+    public Font font;
 
-    private Rectangle lbl_PlayerName;
-    private boolean isPlayerSelected = false;
-    private String txt_Nickname = "Nick Name->";
+    public Rectangle lbl_PlayerName;
+    public boolean isPlayerSelected = false;
+    public String txt_Nickname = "Nick Name->";
 
-    private Rectangle gamerNameInput;
-    private boolean isGamerNameHighlighted = false;
+    public Rectangle gamerNameInput;
+    public boolean isGamerNameHighlighted = false;
     public String txt_GamerName = "";
 
     // Ready button
-    private Rectangle btn_Ready;
-    private boolean isReady = false; // true if the mouse hovered over the rectangle
-    private String txt_Ready = "Ready";
+    public Rectangle btn_Ready;
+    public boolean isReady = false; // true if the mouse hovered over the rectangle
+    public String txt_Ready = "Ready";
 
     //constructor
     public MainMenu(PinPonGame game) {
@@ -42,7 +41,7 @@ public class MainMenu extends MouseAdapter {
         game.startThread();
         font = new Font("Arial", Font.ITALIC, 30);
 
-        // position and dimensions of each button
+        // positions and dimensions of each button
         int x, y, width = 200, height = 50;
 
         y = PinPonGame.HEIGHT / 2 + height / 2;
@@ -51,14 +50,14 @@ public class MainMenu extends MouseAdapter {
         btn_Ready = new Rectangle(readyLoc, y, width, height);
 
         int x_slocation = PinPonGame.WIDTH * 3 / 4 - width / 2;
-        y = PinPonGame.HEIGHT / 2 - height;//change y position
+        y = PinPonGame.HEIGHT / 2 - height;//changes y position
         lbl_PlayerName = new Rectangle(x_flocation, y, width, height);
 
         gamerNameInput = new Rectangle(x_slocation, y, width, height);
 
     }
 
-    public void draw(Graphics g) {//This myDraw method draws the main menu components
+    public void draw(Graphics g) {//This draw method draws the main menu components
         Graphics2D g2d = (Graphics2D) g;
         g.setFont(font);
 

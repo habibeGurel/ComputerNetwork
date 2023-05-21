@@ -4,13 +4,11 @@ import Client.Client;
 import java.awt.Color;
 import java.awt.Graphics;
 import Message.Message;
-
 /**
- *
- *
- * @author Habibe
- *
+ * 
+ * @author Habibe Gurel 1921221034
  */
+
 //The ball class of the table tennis game
 public class Ball {
 
@@ -56,7 +54,7 @@ public class Ball {
             clear();
         }
         // wall collisions
-        if (x + SIZE >= PinPonGame.WIDTH) { // right wall
+        if (x + SIZE >= PinPonGame.WIDTH) { // isRight wall
             rightPaddle.addPoint();
             Message msg = new Message(Message.Message_Type.ChangeScore);
             msg.content = rightPaddle.score;

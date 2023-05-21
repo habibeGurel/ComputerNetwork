@@ -7,10 +7,8 @@ import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 
 /**
- *
- *
- * @author Habibe
- *
+ * 
+ * @author Habibe Gurel 1921221034
  */
 public class FrameWindow extends JFrame implements WindowListener {
 

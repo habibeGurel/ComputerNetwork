@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Server;
 
 import java.net.ServerSocket;
@@ -16,9 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Habibe
+ * Bilgisayar Aglari Proje 1
+ * @author Habibe Gurel 1921221034
  */
+
 public class Server {
 
     public static ServerSocket socketServer;
@@ -60,14 +56,14 @@ public class Server {
         }
     }
 
-    // Sending the rival name to the user
+    // Sends the rival name to the user
     private static void SendRivalInfo(SClient cl) {
         Message msg = new Message(Message_Type.RivalFound);
         msg.content = cl.rival.name;
         Send(cl, msg);
     }
 
-    //Sending the location of paddle to the rival
+    //Sends the location of paddle to the rival
     public static void PaddleUp(SClient cl, Message msg) {
         Message up = msg;
         Send(cl.rival, up);
@@ -86,7 +82,6 @@ public class Server {
     static void ScoreChanged(SClient cl, Message msg) {
         Message score = msg;
         Send(cl.rival, score);
-        System.out.println("Score changed!!");
     }
 
     public static void ExitServer(SClient cl) throws IOException {
@@ -109,7 +104,7 @@ public class Server {
 
                     Server.CId++;
                     Server.clientList.add(clientt);
-                    System.out.println(Server.CId + ". Client Has Came...");
+                    System.out.println(Server.CId + " came.");
 
                     clientt.listenThread.start();
 

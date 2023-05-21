@@ -15,11 +15,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 /**
- *
- *
- * @author Habibe
- *
+ * Bilgisayar Aglari Proje 1
+ * @author Habibe Gurel 1921221034
  */
+
 //class that manages the game, drawing and updating physics
 public class PinPonGame extends Canvas implements Runnable {
 
@@ -31,8 +30,8 @@ public class PinPonGame extends Canvas implements Runnable {
     public final static int WIDTH = 1000;
     public final static int HEIGHT = WIDTH * 9 / 16; // 16:9 aspect ratio
 
-    public boolean running = false; // true if the game is running
-    public Thread gameThread; // thread where the game is updated AND drawn (single thread game)
+    public boolean isGameRunning = false; // true if the game is running
+    public Thread gameThread; // thread where the single thread game is drawn and updated
 
     public Paddle rightPdl;
     public static Paddle leftPdl;
@@ -57,7 +56,7 @@ public class PinPonGame extends Canvas implements Runnable {
         new FrameWindow("Table Tennis Game", this);
         initializeGame();
 
-        // position and dimensions of buttons
+        // position and dimensions
         int x, y, width = 100, height = 40;
         y = height / 2;
 
@@ -91,14 +90,14 @@ public class PinPonGame extends Canvas implements Runnable {
         Graphics g = myBuffer.getDrawGraphics();
         renderBackground(g);
 
-        // myDraw paddles (score will be drawn with them)
-        rightPdl.draw(g);
-        leftPdl.draw(g);
+        // draw paddles (score will be drawn with them)
+        rightPdl.drawPaddle(g);
+        leftPdl.drawPaddle(g);
 
-        // myDraw ball
+        // draw ball
         ball.drawBall(g);
 
-        // myDraw main menu components
+        // draw main menu components
         if (menu.isMainMenuDisplaying) {
             menu.draw(g);
         }
@@ -117,13 +116,13 @@ public class PinPonGame extends Canvas implements Runnable {
     public synchronized void startThread() {
         gameThread = new Thread(this);
         gameThread.start(); // start thread
-        running = true;
+        isGameRunning = true;
     }
 
     public void stopThread() {
         try {
             gameThread.join(); // waits the thread to finish
-            running = false;
+            isGameRunning = false;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -150,10 +149,10 @@ public class PinPonGame extends Canvas implements Runnable {
         // game timer
         long lastTime = System.nanoTime();
         double ns = 1000000000 / tickCount;
-        double delta = 0;//delta is used to drive scheduling and checkCollision operations in the game loop.
+        double delta = 0;//delta is used to drive scheduling and collision operations in the game loop.
         long timer = System.currentTimeMillis();
         int frames = 0;
-        while (running) {
+        while (isGameRunning) {
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
@@ -180,16 +179,16 @@ public class PinPonGame extends Canvas implements Runnable {
         g.setColor(Color.WHITE);
         Graphics2D g2d = (Graphics2D) g;
         
-        // line line of the tennis table that in the middle
+        // line of the tennis table that in the middle
         Stroke line = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10}, 0);
         g2d.setStroke(line);
         g.drawLine(WIDTH / 2, 0, WIDTH / 2, HEIGHT);
         
         g2d.setStroke(new BasicStroke(2f));
-        // Line of the tennis Table that in the middle of the paddles
+        // Line of the tennis table that in the middle of the paddles
         g2d.drawOval(WIDTH / 2 - 150, HEIGHT / 2 - 150, 300, 300);
         g.setColor(Color.BLACK);
-        // circle of the tennis Table that in the middle
+        // circle of the tennis table that in the middle
         g.drawLine(0, HEIGHT / 2, WIDTH, HEIGHT / 2);
         g.setColor(Color.WHITE);
         
@@ -212,8 +211,8 @@ public class PinPonGame extends Canvas implements Runnable {
             g.setColor(Color.BLACK);
             g.drawString(rivalNameTxt, (int) (rivalName.getX() + rivalName.getWidth() / 2 - str_Width / 2),
                     (int) (rivalName.getY() + rivalName.getHeight() / 2 + str_Height / 4));
-
-            if (isGameFinished) {//when the game finished, there is a winner of the game, so this control mechanism prints the winner when the game is over
+            //when the game finished, there is a winner of the game, so this control mechanism prints the winner when the game is over
+            if (isGameFinished) {
                 g.setFont(font1);
 
                 int strWidth1, strHeight1;
@@ -247,15 +246,15 @@ public class PinPonGame extends Canvas implements Runnable {
             }
         }
     }
-
-    public static int BallIndıcator(double d) {//used to determine the position of the ball.
+    //used to determine the position of the ball.
+    public static int BallIndıcator(double d) {
         if (d <= 0) {
             return -1;
         }
         return 1;
     }
-
-    public static int provideRange(int value, int min, int max) {//method keeps the value between the min and max
+    //method keeps the value between the min and max
+    public static int provideRange(int value, int min, int max) {
         return Math.min(Math.max(value, min), max);
     }
 

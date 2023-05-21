@@ -14,8 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Habibe
+ * Bilgisayar Aglari Proje 1
+ * @author Habibe Gurel 1921221034
  */
 public class Client {
 
@@ -68,7 +68,6 @@ public class Client {
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public static void Display(String msg) {
