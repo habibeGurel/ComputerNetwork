@@ -28,7 +28,7 @@ public class HandleKey extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
         if (mainMenu.txt_GamerName.length() < 8) {//the length of the name should be max 8
-            if (mainMenu.available) {
+            if (mainMenu.isMainMenuDisplaying) {
                 mainMenu.txt_GamerName += e.getKeyChar();
             }
         }

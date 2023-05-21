@@ -19,16 +19,16 @@ import java.awt.event.MouseAdapter;
  */
 public class MainMenu extends MouseAdapter {
 
-    public static boolean available; // true if main menu is displaying
-    private boolean isPlayerName = false;
+    public static boolean isMainMenuDisplaying; // true if main menu is displaying
+    private boolean isPlayerNameInput = false;
     private Font font;
 
     private Rectangle lbl_PlayerName;
-    private boolean isPlayer = false;
+    private boolean isPlayerSelected = false;
     private String txt_Nickname = "Nick Name->";
 
-    private Rectangle gamerName;
-    private boolean tHighlight = false;
+    private Rectangle gamerNameInput;
+    private boolean isGamerNameHighlighted = false;
     public String txt_GamerName = "";
 
     // Ready button
@@ -38,7 +38,7 @@ public class MainMenu extends MouseAdapter {
 
     //constructor
     public MainMenu(PinPonGame game) {
-        available = true;
+        isMainMenuDisplaying = true;
         game.startThread();
         font = new Font("Arial", Font.ITALIC, 30);
 
@@ -54,7 +54,7 @@ public class MainMenu extends MouseAdapter {
         y = PinPonGame.HEIGHT / 2 - height;//change y position
         lbl_PlayerName = new Rectangle(x_flocation, y, width, height);
 
-        gamerName = new Rectangle(x_slocation, y, width, height);
+        gamerNameInput = new Rectangle(x_slocation, y, width, height);
 
     }
 
@@ -79,13 +79,13 @@ public class MainMenu extends MouseAdapter {
         g2d.fill(lbl_PlayerName);
 
         g.setColor(labelColor);
-        g2d.fill(gamerName);
+        g2d.fill(gamerNameInput);
 
         // draw borders of buttons and labels
         g.setColor(Color.CYAN);
         g2d.draw(btn_Ready);
         g2d.draw(lbl_PlayerName);
-        g2d.draw(gamerName);
+        g2d.draw(gamerNameInput);
 
         // draw text in buttons
         int strWidth, strHeight;
@@ -108,9 +108,22 @@ public class MainMenu extends MouseAdapter {
         strHeight = g.getFontMetrics(font).getHeight();
 
         g.setColor(Color.LIGHT_GRAY);
-        g.drawString(txt_GamerName, (int) (gamerName.getX() + gamerName.getWidth() / 2 - strWidth / 2),
-                (int) (gamerName.getY() + gamerName.getHeight() / 2 + strHeight / 4));
+        g.drawString(txt_GamerName, (int) (gamerNameInput.getX() + gamerNameInput.getWidth() / 2 - strWidth / 2),
+                (int) (gamerNameInput.getY() + gamerNameInput.getHeight() / 2 + strHeight / 4));
 
+        // Draw a title on the top of the game
+        Font titleFont = new Font("Arial", Font.BOLD, 50);
+        String titleText = "TABLE TENNIS GAME";
+        Rectangle title = new Rectangle();
+        title = new Rectangle(250, 10, 550, 100);
+        Color titlecolor = new Color(0, 68, 102);
+        g.setColor(titlecolor);
+        g2d.fill(title);
+        int titleWidth = g.getFontMetrics(titleFont).stringWidth(titleText);
+        int titleHeight = g.getFontMetrics(titleFont).getHeight();
+        g.setFont(titleFont);
+        g.setColor(Color.CYAN);
+        g.drawString(titleText, 250, (PinPonGame.HEIGHT / 4) - titleHeight);
     }
 
     @Override
@@ -123,13 +136,13 @@ public class MainMenu extends MouseAdapter {
     public void mouseClicked(MouseEvent e) {
         Point p = e.getPoint();
         if (btn_Ready.contains(p)) {
-            available = false;
+            isMainMenuDisplaying = false;
             Client.Start("127.0.0.1", 5000);
             Message msg = new Message(Message.Message_Type.ServerCome);
             msg.content = txt_GamerName;
             Client.Send(msg);
-        } else if (gamerName.contains(p)) {
-            isPlayerName = true;
+        } else if (gamerNameInput.contains(p)) {
+            isPlayerNameInput = true;
         }
     }
 

@@ -42,7 +42,7 @@ public class PinPonGame extends Canvas implements Runnable {
     public static String gamerNameTxt = "";
 
     public Rectangle rivalName;
-    public static String rivalNameTxt = "Waiting";//If the rival hasn't arrived yet, it will say "waiting"
+    public static String rivalNameTxt = ".......";//If the rival hasn't arrived yet, there is "....."
 
     public Rectangle winnerName;
     public static String winnerNameTxt = "";
@@ -50,9 +50,7 @@ public class PinPonGame extends Canvas implements Runnable {
     Font font; // for player names
     Font font1; // for winner
 
-    /**
-     * constructor
-     */
+    //constructor
     public PinPonGame() {
 
         createCanvas();
@@ -101,7 +99,7 @@ public class PinPonGame extends Canvas implements Runnable {
         ball.drawBall(g);
 
         // myDraw main menu components
-        if (menu.available) {
+        if (menu.isMainMenuDisplaying) {
             menu.draw(g);
         }
         gamerNameTxt = "Player 1: " + menu.txt_GamerName;
@@ -179,14 +177,23 @@ public class PinPonGame extends Canvas implements Runnable {
         g.setColor(tennisTable);
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
-        // Line and circle of the tennis Table that in the middle
         g.setColor(Color.WHITE);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setStroke(new BasicStroke(2f));
-        g2d.drawOval(WIDTH / 2 - 150, HEIGHT / 2 - 150, 300, 300);
+        
+        // line line of the tennis table that in the middle
+        Stroke line = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{10}, 0);
+        g2d.setStroke(line);
         g.drawLine(WIDTH / 2, 0, WIDTH / 2, HEIGHT);
-
-        if (!menu.available) {// After connect to server
+        
+        g2d.setStroke(new BasicStroke(2f));
+        // Line of the tennis Table that in the middle of the paddles
+        g2d.drawOval(WIDTH / 2 - 150, HEIGHT / 2 - 150, 300, 300);
+        g.setColor(Color.BLACK);
+        // circle of the tennis Table that in the middle
+        g.drawLine(0, HEIGHT / 2, WIDTH, HEIGHT / 2);
+        g.setColor(Color.WHITE);
+        
+        if (!menu.isMainMenuDisplaying) {// After connect to server
             g.setFont(font);//set the font
 
             //configure the gamer name color and location settings
@@ -222,7 +229,7 @@ public class PinPonGame extends Canvas implements Runnable {
 
     //update locations of all components like ball, paddle and checkCollision the other settings
     public void myUpdate() {
-        if (!menu.available) {
+        if (!menu.isMainMenuDisplaying) {
             if (Client.isRivalFound) {
                 if (isGameFinished == false) {
                     ball.checkCollision(rightPdl, leftPdl);
@@ -241,7 +248,7 @@ public class PinPonGame extends Canvas implements Runnable {
         }
     }
 
-    public static int sign(double d) {//sign of the input
+    public static int BallIndıcator(double d) {//used to determine the position of the ball.
         if (d <= 0) {
             return -1;
         }

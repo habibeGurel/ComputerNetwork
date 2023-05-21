@@ -39,11 +39,11 @@ public class Ball {
         x = PinPonGame.WIDTH / 2 - SIZE / 2;
         y = PinPonGame.HEIGHT / 2 - SIZE / 2;
 
-        motionX = PinPonGame.sign(Math.random() * 2.0 - 1);
-        motionY = PinPonGame.sign(Math.random() * 2.0 - 1);
+        motionX = PinPonGame.BallIndıcator(Math.random() * 2.0 - 1);
+        motionY = PinPonGame.BallIndıcator(Math.random() * 2.0 - 1);
     }
 
-    public void checkCollision(Paddle leftPaddle, Paddle rightPaddle) {
+    public void checkCollision(Paddle rightPaddle , Paddle  leftPaddle) {
         // checkCollision the position
         x += motionX * ballSpeed;
         y += motionY * ballSpeed;
@@ -57,9 +57,9 @@ public class Ball {
         }
         // wall collisions
         if (x + SIZE >= PinPonGame.WIDTH) { // right wall
-            leftPaddle.addPoint();
+            rightPaddle.addPoint();
             Message msg = new Message(Message.Message_Type.ChangeScore);
-            msg.content = leftPaddle.score;
+            msg.content = rightPaddle.score;
             Client.Send(msg);//send to server
             clear();
         }
