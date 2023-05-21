@@ -60,11 +60,18 @@ public class MainMenu extends MouseAdapter {
     public void draw(Graphics g) {//This draw method draws the main menu components
         Graphics2D g2d = (Graphics2D) g;
         g.setFont(font);
-
+        
+        //main menu background settings
+        Rectangle pnl_backGround = new Rectangle();
+        pnl_backGround = new Rectangle(0, 0, PinPonGame.WIDTH, PinPonGame.HEIGHT);
+        Color backGround = new Color(0, 0, 51);
+        g.setColor(backGround);
+        g2d.fill(pnl_backGround);
+        
         //button color settings
-        Color buttonColor = new Color(0, 119, 179);
+        Color buttonColor = new Color(0, 0, 102);
         Color changeColor = new Color(128, 212, 255);
-        Color labelColor = new Color(0, 119, 179);
+        Color labelColor = new Color(0, 0, 102);
 
         //control mechanism that changes the color of the button when the mouse is hovered over the button
         g.setColor(buttonColor);
@@ -88,7 +95,7 @@ public class MainMenu extends MouseAdapter {
 
         // draw text in buttons
         int strWidth, strHeight;
-
+        
         strWidth = g.getFontMetrics(font).stringWidth(txt_Ready);
         strHeight = g.getFontMetrics(font).getHeight();
 
@@ -113,11 +120,6 @@ public class MainMenu extends MouseAdapter {
         // Draw a title on the top of the game
         Font titleFont = new Font("Arial", Font.BOLD, 50);
         String titleText = "TABLE TENNIS GAME";
-        Rectangle title = new Rectangle();
-        title = new Rectangle(250, 10, 550, 100);
-        Color titlecolor = new Color(0, 68, 102);
-        g.setColor(titlecolor);
-        g2d.fill(title);
         int titleWidth = g.getFontMetrics(titleFont).stringWidth(titleText);
         int titleHeight = g.getFontMetrics(titleFont).getHeight();
         g.setFont(titleFont);
@@ -136,7 +138,7 @@ public class MainMenu extends MouseAdapter {
         Point p = e.getPoint();
         if (btn_Ready.contains(p)) {
             isMainMenuDisplaying = false;
-            Client.Start("127.0.0.1", 5000);
+            Client.Start("127.0.0.1", 5000);//16.16.253.143 aws ip
             Message msg = new Message(Message.Message_Type.ServerCome);
             msg.content = txt_GamerName;
             Client.Send(msg);

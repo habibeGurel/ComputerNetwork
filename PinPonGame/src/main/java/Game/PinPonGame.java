@@ -33,7 +33,7 @@ public class PinPonGame extends Canvas implements Runnable {
     public boolean isGameRunning = false; // true if the game is running
     public Thread gameThread; // thread where the single thread game is drawn and updated
 
-    public Paddle rightPdl;
+    public static Paddle rightPdl;
     public static Paddle leftPdl;
     public Ball ball;
 
@@ -247,7 +247,7 @@ public class PinPonGame extends Canvas implements Runnable {
         }
     }
     //used to determine the position of the ball.
-    public static int BallIndıcator(double d) {
+    public static int BallIndicator(double d) {
         if (d <= 0) {
             return -1;
         }

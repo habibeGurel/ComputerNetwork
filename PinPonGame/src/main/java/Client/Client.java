@@ -41,7 +41,7 @@ public class Client {
             Message msg = new Message(Message.Message_Type.RivalFound);
             msg.content = PinPonGame.gamerNameTxt;
             Client.Send(msg);
-            System.out.println("Player :" + PinPonGame.gamerNameTxt);
+            System.out.println("Player :" + PinPonGame.gamerNameTxt);//Last connected player's name is written
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -99,7 +99,7 @@ class Listen extends Thread {
                         PinPonGame.leftPdl.stop();
                         break;
                     case ChangeScore:
-                        PinPonGame.leftPdl.score = Integer.parseInt(received.content.toString());
+                        PinPonGame.rightPdl.score = Integer.parseInt(received.content.toString());
                         break;
                 }
 
